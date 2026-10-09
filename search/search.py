@@ -97,6 +97,13 @@ def depthFirstSearch(problem: SearchProblem):
         if problem.isGoalState(current_state):
             return actions
             
+        if current_state not in visited:
+            visited.add(current_state)
+            
+            for successor, action, stepCost in problem.getSuccessors(current_state):
+                if successor not in visited:
+                    fringe.push((successor, actions + [action]))
+                    
     return []
   
    
