@@ -89,11 +89,16 @@ def depthFirstSearch(problem: SearchProblem):
     from util import Stack
     fringe = Stack()
     visited = set()
-    
-    # Push the start state and an empty path
     fringe.push((problem.getStartState(), []))
     
+    while not fringe.isEmpty():
+        current_state, actions = fringe.pop()
+        
+        if problem.isGoalState(current_state):
+            return actions
+            
     return []
+  
    
 
 def breadthFirstSearch(problem: SearchProblem):
