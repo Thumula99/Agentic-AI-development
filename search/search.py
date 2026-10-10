@@ -72,7 +72,7 @@ def tinyMazeSearch(problem):
     w = Directions.WEST
     return  [s, s, w, s, w, w, s, w]
 
-def depthFirstSearch(problem: SearchProblem):
+def depthFirstSearch(problem):
     """
     Search the deepest nodes in the search tree first.
 
@@ -86,18 +86,70 @@ def depthFirstSearch(problem: SearchProblem):
     print("Is the start a goal?", problem.isGoalState(problem.getStartState()))
     print("Start's successors:", problem.getSuccessors(problem.getStartState()))
     """
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    from util import Stack
+    fringe = Stack()
+    visited = set()
+    fringe.push((problem.getStartState(), []))
+    
+    while not fringe.isEmpty():
+        current_state, actions = fringe.pop()
+        
+        if problem.isGoalState(current_state):
+            return actions
+            
+        if current_state not in visited:
+            visited.add(current_state)
+            
+            for successor, action, stepCost in problem.getSuccessors(current_state):
+                if successor not in visited:
+                    fringe.push((successor, actions + [action]))
+                    
+    return []
 
-def breadthFirstSearch(problem: SearchProblem):
+def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    from util import Queue
+    fringe = Queue()
+    visited = set()
+    fringe.push((problem.getStartState(), []))
+    
+    while not fringe.isEmpty():
+        current_state, actions = fringe.pop()
+        
+        if problem.isGoalState(current_state):
+            return actions
+            
+        if current_state not in visited:
+            visited.add(current_state)
+            
+            for successor, action, stepCost in problem.getSuccessors(current_state):
+                if successor not in visited:
+                    fringe.push((successor, actions + [action]))
+                    
+    return []
 
 def uniformCostSearch(problem: SearchProblem):
     """Search the node of least total cost first."""
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    fringe = util.PriorityQueue()
+    start_state = problem.getStartState()
+    # Priority queue stores: (state, actions, path_cost) with priority = path_cost
+    fringe.push((start_state, [], 0), 0)
+    best_cost = {}
+
+    while not fringe.isEmpty():
+        state, actions, cost = fringe.pop()
+
+        if problem.isGoalState(state):
+            return actions
+
+        if state not in best_cost or cost < best_cost[state]:
+            best_cost[state] = cost
+            for next_state, action, step_cost in problem.getSuccessors(state):
+                new_cost = cost + step_cost
+                new_actions = actions + [action]
+                fringe.push((next_state, new_actions, new_cost), new_cost)
+
+    return []
 
 def nullHeuristic(state, problem=None):
     """
@@ -108,8 +160,28 @@ def nullHeuristic(state, problem=None):
 
 def aStarSearch(problem: SearchProblem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    fringe = util.PriorityQueue()
+    start_state = problem.getStartState()
+    # Priority queue stores: (state, actions, path_cost) with priority = g + h
+    start_priority = 0 + heuristic(start_state, problem)
+    fringe.push((start_state, [], 0), start_priority)
+    best_cost = {}
+
+    while not fringe.isEmpty():
+        state, actions, cost = fringe.pop()
+
+        if problem.isGoalState(state):
+            return actions
+
+        if state not in best_cost or cost < best_cost[state]:
+            best_cost[state] = cost
+            for next_state, action, step_cost in problem.getSuccessors(state):
+                new_cost = cost + step_cost
+                new_actions = actions + [action]
+                priority = new_cost + heuristic(next_state, problem)
+                fringe.push((next_state, new_actions, new_cost), priority)
+
+    return []
 
 
 # Abbreviations
