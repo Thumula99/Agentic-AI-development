@@ -339,6 +339,11 @@ class CornersProblem(search.SearchProblem):
 
             if not self.walls[nextx][nexty]:  # reject moves into walls
                 nextPos = (nextx, nexty)
+                # Build new immutable visited tuple — never mutate the original
+                nextVisited = tuple(
+                    visitedCorners[i] or (nextPos == self.corners[i])
+                    for i in range(4)
+                )
 
         self._expanded += 1 # DO NOT CHANGE
         return successors
