@@ -337,6 +337,9 @@ class CornersProblem(search.SearchProblem):
             dx, dy = Actions.directionToVector(action)
             nextx, nexty = int(x + dx), int(y + dy)
 
+            if not self.walls[nextx][nexty]:  # reject moves into walls
+                nextPos = (nextx, nexty)
+
         self._expanded += 1 # DO NOT CHANGE
         return successors
 
