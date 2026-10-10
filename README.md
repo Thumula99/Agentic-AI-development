@@ -183,3 +183,18 @@ python3 pacman.py -p ClosestDotSearchAgent -l bigSearch
 
 ---
 
+## Attribution
+
+This project is based on the **Berkeley CS188 Pac-Man AI Project** developed at the University of California, Berkeley.
+
+- Original authors: John DeNero (denero@cs.berkeley.edu) and Dan Klein (klein@cs.berkeley.edu)
+- Student-side autograding: Brad Miller, Nick Hay, and Pieter Abbeel (pabbeel@cs.berkeley.edu)
+- Project homepage: [http://ai.berkeley.edu](http://ai.berkeley.edu)
+
+> These projects are used for educational purposes. Solutions are not to be distributed or published in accordance with the project's licensing terms.
+
+---
+
+<p align="center">
+  <sub>SE3062 — Intelligent Systems · Group Assignment · 2026</sub>
+</p>
