@@ -299,8 +299,10 @@ class CornersProblem(search.SearchProblem):
         Returns the start state (in your state space, not the full Pacman state
         space)
         """
-        "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        # Build initial visitedCorners: True for any corner Pac-Man starts on
+        startPos = self.startingPosition
+        visitedCorners = tuple(startPos == corner for corner in self.corners)
+        return (startPos, visitedCorners)
 
     def isGoalState(self, state: Any):
         """
