@@ -289,21 +289,28 @@ class CornersProblem(search.SearchProblem):
             if not startingGameState.hasFood(*corner):
                 print('Warning: no food in corner ' + str(corner))
         self._expanded = 0 # DO NOT CHANGE; Number of search nodes expanded
+        # Q5 State design: state = (position, visitedCorners)
+#   position       : (x, y) tuple  — Pac-Man grid coordinates
+#   visitedCorners : (bool,bool,bool,bool) — immutable, hashable corner flags
+#   Corner order matches self.corners = ((1,1),(1,top),(right,1),(right,top))
 
     def getStartState(self):
         """
         Returns the start state (in your state space, not the full Pacman state
         space)
         """
-        "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        # Build initial visitedCorners: True for any corner Pac-Man starts on
+        startPos = self.startingPosition
+        visitedCorners = tuple(startPos == corner for corner in self.corners)
+        return (startPos, visitedCorners)
 
     def isGoalState(self, state: Any):
         """
         Returns whether this search state is a goal state of the problem.
+        Goal is reached when all four corners have been visited.
         """
-        "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        _, visitedCorners = state
+        return all(visitedCorners)
 
     def getSuccessors(self, state: Any):
         """
@@ -325,7 +332,20 @@ class CornersProblem(search.SearchProblem):
             #   nextx, nexty = int(x + dx), int(y + dy)
             #   hitsWall = self.walls[nextx][nexty]
 
-            "*** YOUR CODE HERE ***"
+            currentPosition, visitedCorners = state
+            x, y = currentPosition
+            dx, dy = Actions.directionToVector(action)
+            nextx, nexty = int(x + dx), int(y + dy)
+
+            if not self.walls[nextx][nexty]:  # reject moves into walls
+                nextPos = (nextx, nexty)
+                # Build new immutable visited tuple — never mutate the original
+                nextVisited = tuple(
+                    visitedCorners[i] or (nextPos == self.corners[i])
+                    for i in range(4)
+                )
+                nextState = (nextPos, nextVisited)
+                successors.append((nextState, action, 1))
 
         self._expanded += 1 # DO NOT CHANGE
         return successors
