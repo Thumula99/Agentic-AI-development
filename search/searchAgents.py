@@ -360,8 +360,21 @@ def cornersHeuristic(state: Any, problem: CornersProblem):
     corners = problem.corners # These are the corner coordinates
     walls = problem.walls # These are the walls of the maze, as a Grid (game.py)
 
-    "*** YOUR CODE HERE ***"
-    return 0 # Default to trivial solution
+    position, visited = state
+    unvisited = [corners[i] for i in range(len(corners)) if not visited[i]]
+    if not unvisited:
+        return 0
+
+    import itertools
+    min_dist = float('inf')
+    for perm in itertools.permutations(unvisited):
+        dist = abs(position[0] - perm[0][0]) + abs(position[1] - perm[0][1])
+        for i in range(len(perm) - 1):
+            dist += abs(perm[i][0] - perm[i+1][0]) + abs(perm[i][1] - perm[i+1][1])
+        if dist < min_dist:
+            min_dist = dist
+
+    return min_dist
 
 class AStarCornersAgent(SearchAgent):
     "A SearchAgent for FoodSearchProblem using A* and your foodHeuristic"
@@ -454,8 +467,51 @@ def foodHeuristic(state: Tuple[Tuple, List[List]], problem: FoodSearchProblem):
     problem.heuristicInfo['wallCount']
     """
     position, foodGrid = state
-    "*** YOUR CODE HERE ***"
-    return 0
+    foodList = foodGrid.asList()
+    if len(foodList) == 0:
+        return 0
+
+    def getMazeDist(p1, p2):
+        if p1 == p2:
+            return 0
+        key = (p1, p2) if p1 <= p2 else (p2, p1)
+        if key not in problem.heuristicInfo:
+            problem.heuristicInfo[key] = mazeDistance(p1, p2, problem.startingGameState)
+        return problem.heuristicInfo[key]
+
+    def getMstCost(foods):
+        if len(foods) <= 1:
+            return 0
+        foodTuple = tuple(sorted(foods))
+        if foodTuple in problem.heuristicInfo:
+            return problem.heuristicInfo[foodTuple]
+
+        unvisited = set(foods)
+        start = foods[0]
+        unvisited.remove(start)
+
+        min_dist = {f: getMazeDist(start, f) for f in unvisited}
+        total_mst = 0
+
+        while unvisited:
+            next_node = min(unvisited, key=lambda f: min_dist[f])
+            total_mst += min_dist[next_node]
+            unvisited.remove(next_node)
+
+            for f in unvisited:
+                d = getMazeDist(next_node, f)
+                if d < min_dist[f]:
+                    min_dist[f] = d
+
+        problem.heuristicInfo[foodTuple] = total_mst
+        return total_mst
+
+    distances = [getMazeDist(position, f) for f in foodList]
+    max_dist = max(distances)
+    min_dist = min(distances)
+    mst = getMstCost(foodList)
+
+    return max(max_dist, min_dist + mst)
 
 class ClosestDotSearchAgent(SearchAgent):
     "Search for all food using a sequence of searches"
