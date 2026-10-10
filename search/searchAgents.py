@@ -289,6 +289,10 @@ class CornersProblem(search.SearchProblem):
             if not startingGameState.hasFood(*corner):
                 print('Warning: no food in corner ' + str(corner))
         self._expanded = 0 # DO NOT CHANGE; Number of search nodes expanded
+        # Q5 State design: state = (position, visitedCorners)
+#   position       : (x, y) tuple  — Pac-Man grid coordinates
+#   visitedCorners : (bool,bool,bool,bool) — immutable, hashable corner flags
+#   Corner order matches self.corners = ((1,1),(1,top),(right,1),(right,top))
 
     def getStartState(self):
         """
