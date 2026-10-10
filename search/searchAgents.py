@@ -344,6 +344,8 @@ class CornersProblem(search.SearchProblem):
                     visitedCorners[i] or (nextPos == self.corners[i])
                     for i in range(4)
                 )
+                nextState = (nextPos, nextVisited)
+                successors.append((nextState, action, 1))
 
         self._expanded += 1 # DO NOT CHANGE
         return successors
