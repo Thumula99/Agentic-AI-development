@@ -72,7 +72,7 @@ def tinyMazeSearch(problem):
     w = Directions.WEST
     return  [s, s, w, s, w, w, s, w]
 
-def depthFirstSearch(problem: SearchProblem):
+def depthFirstSearch(problem):
     """
     Search the deepest nodes in the search tree first.
 
@@ -86,13 +86,47 @@ def depthFirstSearch(problem: SearchProblem):
     print("Is the start a goal?", problem.isGoalState(problem.getStartState()))
     print("Start's successors:", problem.getSuccessors(problem.getStartState()))
     """
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    from util import Stack
+    fringe = Stack()
+    visited = set()
+    fringe.push((problem.getStartState(), []))
+    
+    while not fringe.isEmpty():
+        current_state, actions = fringe.pop()
+        
+        if problem.isGoalState(current_state):
+            return actions
+            
+        if current_state not in visited:
+            visited.add(current_state)
+            
+            for successor, action, stepCost in problem.getSuccessors(current_state):
+                if successor not in visited:
+                    fringe.push((successor, actions + [action]))
+                    
+    return []
 
-def breadthFirstSearch(problem: SearchProblem):
+def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    from util import Queue
+    fringe = Queue()
+    visited = set()
+    fringe.push((problem.getStartState(), []))
+    
+    while not fringe.isEmpty():
+        current_state, actions = fringe.pop()
+        
+        if problem.isGoalState(current_state):
+            return actions
+            
+        if current_state not in visited:
+            visited.add(current_state)
+            
+            for successor, action, stepCost in problem.getSuccessors(current_state):
+                if successor not in visited:
+                    fringe.push((successor, actions + [action]))
+                    
+    return []
 
 def uniformCostSearch(problem: SearchProblem):
     """Search the node of least total cost first."""
