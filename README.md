@@ -1,5 +1,9 @@
 # 🤖 Agentic AI Development — SE3062 Intelligent Systems
 
+[![Python](https://img.shields.io/badge/Python-3.6+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Autograder](https://img.shields.io/badge/Autograder-26%2F26%20Passed-success)](search/)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 > **Berkeley CS188 Pac-Man Search Project** | Group Assignment — SE3062 Intelligent Systems  
 > Third-Year Undergraduate | Faculty of Computing · SE Department
 
@@ -46,12 +50,12 @@ Agentic-AI-development/
 
 ## Algorithms Implemented
 
-| Question | Algorithm | File |
-|:---:|---|---|
-| Q1 | Depth-First Search (DFS) | `search.py` |
-| Q2 | Breadth-First Search (BFS) | `search.py` |
-| Q3 | Uniform-Cost Search (UCS) | `search.py` |
-| Q4 | A\* Search | `search.py` |
+| Question | Algorithm | Frontier Type | File |
+|:---:|---|---|---|
+| Q1 | Depth-First Search (DFS) | `Stack` (LIFO) | `search.py` |
+| Q2 | Breadth-First Search (BFS) | `Queue` (FIFO) | `search.py` |
+| Q3 | Uniform-Cost Search (UCS) | `PriorityQueue` (Cost $g$) | `search.py` |
+| Q4 | A\* Search | `PriorityQueue` ($f = g + h$) | `search.py` |
 
 All algorithms are implemented as **graph search** (with visited-state tracking) and operate on a generic `SearchProblem` interface — fully agnostic to the specific problem domain.
 
@@ -89,7 +93,8 @@ state = (position, visitedCorners)
 ### Prerequisites
 
 - Python **3.6+**
-- No external dependencies — all code uses the Python standard library.
+- `tkinter` (bundled by default with standard Python installations; required for GUI visualizations)
+- No external third-party dependencies — relies entirely on the Python standard library.
 
 ### Clone the repository
 
@@ -101,6 +106,9 @@ cd Agentic-AI-development/search
 ---
 
 ## Running the Autograder
+
+> [!TIP]
+> On Windows environments, use `python` instead of `python3` if `python3` is not mapped in your PATH.
 
 Run all questions:
 
@@ -179,7 +187,7 @@ python3 pacman.py -p ClosestDotSearchAgent -l bigSearch
 | Q6 | Corners Heuristic | 3 | ✅ |
 | Q7 | Food Heuristic | 5 | ✅ |
 | Q8 | Closest Dot Search | 3 | ✅ |
-| **Total** | | **26** | |
+| **Total** | | **26** | ✅ 26 / 26 |
 
 ---
 

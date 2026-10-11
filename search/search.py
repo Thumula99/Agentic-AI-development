@@ -139,6 +139,7 @@ def uniformCostSearch(problem):
     while not fringe.isEmpty():
         state, actions, cost = fringe.pop()
 
+        # Check if the goal state has been reached
         if problem.isGoalState(state):
             return actions
 
