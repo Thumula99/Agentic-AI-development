@@ -103,6 +103,9 @@ cd Agentic-AI-development/search
 
 ## Running the Autograder
 
+> [!TIP]
+> On Windows environments, use `python` instead of `python3` if `python3` is not mapped in your PATH.
+
 Run all questions:
 
 ```bash
