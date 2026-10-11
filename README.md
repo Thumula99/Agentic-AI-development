@@ -388,6 +388,52 @@ The impact of admissible heuristic pruning is highlighted in the empirical test 
 
 ---
 
+## 🤝 Contribution Workflow & Collaboration Standards
+
+### 🌿 Git Branching & PR Guidelines
+
+To maintain repository hygiene and traceable development history across the team, all changes must follow standard Git branching conventions:
+
+1. **Feature Branches:** Create dedicated topic branches from `dev` or `main`:
+   ```bash
+   git checkout -b feat/corner-heuristic-optimization
+   ```
+2. **Conventional Commit Messages:** Structure commits with conventional types (`feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `chore:`):
+   ```bash
+   git commit -m "docs(readme): update food heuristic MST documentation"
+   ```
+3. **Pull Request Validation Checklist:**
+   - [ ] Full autograder suite passes locally: `python3 autograder.py --no-graphics` (26 / 26 points)
+   - [ ] No regression introduced to existing search algorithm tests (Q1–Q4)
+   - [ ] Code formatted according to PEP 8 standards
+   - [ ] No extraneous temporary files (`*.pyc`, `__pycache__`) committed
+
+---
+
+## 📜 Academic Integrity & Citation
+
+### 🛡️ Ethical Usage Policy
+
+This implementation was produced for academic evaluation in **SE3062 — Intelligent Systems**. In alignment with university honor codes and the **UC Berkeley CS188 Educational Code of Conduct**:
+- This repository is maintained as a reference portfolio of coursework.
+- Direct copying or plagiarism of these solutions for active academic assignments is strictly discouraged.
+
+### 📖 BibTeX Citation
+
+If you reference this project in academic coursework or research documentation, please cite as follows:
+
+```bibtex
+@misc{sliit2026pacmansearch,
+  author       = {Faculty of Computing, Department of Software Engineering},
+  title        = {Agentic AI Development: Berkeley CS188 Pac-Man Search Implementation},
+  year         = {2026},
+  publisher    = {GitHub},
+  howpublished = {\url{https://github.com/Thumula99/Agentic-AI-development}}
+}
+```
+
+---
+
 ## Attribution
 
 This project is based on the **Berkeley CS188 Pac-Man AI Project** developed at the University of California, Berkeley.
