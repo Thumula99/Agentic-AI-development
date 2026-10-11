@@ -179,6 +179,7 @@ def aStarSearch(problem, heuristic=nullHeuristic):
         if problem.isGoalState(state):
             return actions
 
+        # Expand state only if not visited or if a cheaper path is found
         if state not in best_cost or cost < best_cost[state]:
             best_cost[state] = cost
             for next_state, action, step_cost in problem.getSuccessors(state):
