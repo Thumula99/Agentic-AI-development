@@ -149,6 +149,42 @@ state = (position, visitedCorners)
 
 ---
 
+## 🧠 Algorithmic Complexity & Theoretical Analysis
+
+### 📊 Comparative Analysis Matrix
+
+The table below summarizes the formal computational complexity, completeness guarantees, and optimality conditions for each implemented search strategy:
+
+| Algorithm | Frontier Data Structure | Evaluation / Priority | Time Complexity | Space Complexity | Complete? | Optimal? |
+|---|---|---|:---:|:---:|:---:|:---:|
+| **DFS (Q1)** | LIFO Stack (`util.Stack`) | Depth order | $O(b^m)$ | $O(b \cdot m)$ | Yes (finite graph with cycle check) | ❌ No |
+| **BFS (Q2)** | FIFO Queue (`util.Queue`) | Shallowest depth first | $O(b^d)$ | $O(b^d)$ | ✅ Yes | ✅ Yes (unit costs) |
+| **UCS (Q3)** | Priority Queue (`util.PriorityQueue`) | Path cost $g(n)$ | $O(b^{1 + \lfloor C^* / \epsilon \rfloor})$ | $O(b^{1 + \lfloor C^* / \epsilon \rfloor})$ | ✅ Yes ($\epsilon > 0$) | ✅ Yes (arbitrary costs) |
+| **A\* Search (Q4)** | Priority Queue (`util.PriorityQueue`) | $f(n) = g(n) + h(n)$ | $O(b^{\Delta})$ *(heuristic dependent)* | $O(b^d)$ | ✅ Yes | ✅ Yes (admissible & consistent $h$) |
+
+*Notation definitions:*
+- $b$: Effective branching factor (legal directional moves, $b \le 4$).
+- $d$: Depth of the shallowest goal state.
+- $m$: Maximum search tree depth (or number of distinct states in maze).
+- $C^*$: Optimal goal path cost.
+- $\epsilon$: Minimal positive step cost lower bound ($\epsilon > 0$).
+
+### 🔬 Heuristic Design Principles
+
+For informed search algorithms (A* on Q4, Q6, and Q7) to remain computationally sound and guarantee path optimality in graph search, custom heuristics must strictly satisfy two theoretical criteria:
+
+1. **Admissibility (Optimism):**
+   $$\forall n, \quad 0 \le h(n) \le h^*(n)$$
+   The heuristic never overestimates the true remaining cost $h^*(n)$ to reach the closest goal.
+2. **Consistency / Monotonicity (Triangle Inequality):**
+   $$\forall n, n' \text{ where } n \xrightarrow{a} n', \quad h(n) \le c(n, a, n') + h(n') \quad \text{and} \quad h(G) = 0$$
+   Consistency guarantees that the evaluation function $f(n) = g(n) + h(n)$ is monotonically non-decreasing along any path, ensuring that when a state is expanded in graph search, the shortest path to that state has definitively been discovered.
+
+- **`cornersHeuristic` (Q6):** Computes the true or relaxed Manhattan distance across unvisited corners, satisfying consistency while pruning thousands of redundant expansions compared to null heuristic.
+- **`foodHeuristic` (Q7):** Combines the shortest path to an uncollected food dot with a **Minimum Spanning Tree (MST)** connecting remaining food locations, yielding a tight, strictly admissible lower bound on total tour length.
+
+---
+
 ## Getting Started
 
 ### Prerequisites
