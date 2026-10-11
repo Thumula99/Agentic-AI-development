@@ -184,6 +184,7 @@ def aStarSearch(problem, heuristic=nullHeuristic):
             for next_state, action, step_cost in problem.getSuccessors(state):
                 new_cost = cost + step_cost
                 new_actions = actions + [action]
+                # Priority f(n) = path cost g(n) + heuristic estimate h(n)
                 priority = new_cost + heuristic(next_state, problem)
                 fringe.push((next_state, new_actions, new_cost), priority)
 
