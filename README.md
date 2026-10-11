@@ -89,7 +89,8 @@ state = (position, visitedCorners)
 ### Prerequisites
 
 - Python **3.6+**
-- No external dependencies — all code uses the Python standard library.
+- `tkinter` (bundled by default with standard Python installations; required for GUI visualizations)
+- No external third-party dependencies — relies entirely on the Python standard library.
 
 ### Clone the repository
 
