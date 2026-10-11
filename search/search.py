@@ -137,6 +137,7 @@ def uniformCostSearch(problem):
     best_cost = {}
 
     while not fringe.isEmpty():
+        # Pop the node with the lowest path cost
         state, actions, cost = fringe.pop()
 
         # Check if the goal state has been reached
