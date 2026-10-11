@@ -46,12 +46,12 @@ Agentic-AI-development/
 
 ## Algorithms Implemented
 
-| Question | Algorithm | File |
-|:---:|---|---|
-| Q1 | Depth-First Search (DFS) | `search.py` |
-| Q2 | Breadth-First Search (BFS) | `search.py` |
-| Q3 | Uniform-Cost Search (UCS) | `search.py` |
-| Q4 | A\* Search | `search.py` |
+| Question | Algorithm | Frontier Type | File |
+|:---:|---|---|---|
+| Q1 | Depth-First Search (DFS) | `Stack` (LIFO) | `search.py` |
+| Q2 | Breadth-First Search (BFS) | `Queue` (FIFO) | `search.py` |
+| Q3 | Uniform-Cost Search (UCS) | `PriorityQueue` (Cost $g$) | `search.py` |
+| Q4 | A\* Search | `PriorityQueue` ($f = g + h$) | `search.py` |
 
 All algorithms are implemented as **graph search** (with visited-state tracking) and operate on a generic `SearchProblem` interface — fully agnostic to the specific problem domain.
 
