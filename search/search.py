@@ -134,6 +134,7 @@ def uniformCostSearch(problem):
     start_state = problem.getStartState()
     # Priority queue stores: (state, actions, path_cost) with priority = path_cost
     fringe.push((start_state, [], 0), 0)
+    # Track the minimum cost found for each visited state
     best_cost = {}
 
     while not fringe.isEmpty():
