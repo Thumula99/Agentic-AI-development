@@ -149,6 +149,7 @@ def uniformCostSearch(problem):
             for next_state, action, step_cost in problem.getSuccessors(state):
                 new_cost = cost + step_cost
                 new_actions = actions + [action]
+                # Push the successor node to the fringe with updated path cost
                 fringe.push((next_state, new_actions, new_cost), new_cost)
 
     return []
