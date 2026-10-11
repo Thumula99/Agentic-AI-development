@@ -50,6 +50,48 @@ The codebase is built on top of the official Berkeley AI project infrastructure 
 
 ---
 
+## 🏛️ System Architecture & Design
+
+The system decouples the core Pac-Man physics engine from the pathfinding intelligence through a formal **Search Problem Abstraction layer**. This clean separation of concerns allows generic graph-search algorithms to operate interchangeably across completely distinct problem domains without modifying the underlying search logic.
+
+```mermaid
+flowchart TD
+    subgraph Environment ["Game Environment (pacman.py & game.py)"]
+        Layout["Maze Layout (.lay)"]
+        GameState["Game State & Rules"]
+    end
+
+    subgraph ProblemLayer ["Search Problem Abstraction (searchAgents.py)"]
+        SearchProblem["SearchProblem Interface\n• getStartState()\n• isGoalState(state)\n• getSuccessors(state)\n• getCostOfActions(actions)"]
+        PosProblem["PositionSearchProblem\n(Q1–Q4)"]
+        CornerProblem["CornersProblem\n(Q5–Q6)"]
+        FoodProblem["AnyFoodSearchProblem\n(Q8)"]
+    end
+
+    subgraph SolverLayer ["Search Algorithm Engine (search.py)"]
+        Algorithm{"Search Strategy\n(DFS / BFS / UCS / A*)"}
+        Frontier["Frontier (Open List)\nutil.Stack / Queue / PriorityQueue"]
+        Explored["Explored Set (Closed List)\nHashable Visited States"]
+    end
+
+    Environment --> ProblemLayer
+    ProblemLayer --> SolverLayer
+    SolverLayer -->|Optimal Action Plan [North, East, ...]| Agent["SearchAgent"]
+    Agent -->|Execute Step| Environment
+```
+
+### 📐 Formal State Space Formulation
+
+Every problem in the system is formalized mathematically as a 5-tuple $\langle S, s_0, T, G, c \rangle$:
+
+1. **State Space ($S$):** The set of all valid agent states. In simple navigation, $s \in \mathbb{R}^2$ represents $(x, y)$ grid coordinates; in composite problems like `CornersProblem`, $s = ((x, y), (c_1, c_2, c_3, c_4))$ includes boolean flags for corner visits.
+2. **Initial State ($s_0 \in S$):** The starting coordinate of Pac-Man extracted from layout metadata.
+3. **Transition Model ($T(s, a) \to s'$):** Given current state $s$ and legal action $a \in \{\text{North}, \text{South}, \text{East}, \text{West}\}$, returns reachable successor $s'$.
+4. **Goal Test ($G(s) \to \{\text{True}, \text{False}\}$):** A boolean predicate confirming if the state satisfies termination criteria.
+5. **Step Cost ($c(s, a, s')$):** Non-negative edge cost (default $1.0$, or variable penalties in `StayEastSearchAgent`).
+
+---
+
 ## Project Structure
 
 ```
