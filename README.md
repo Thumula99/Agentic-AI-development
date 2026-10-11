@@ -1,5 +1,9 @@
 # 🤖 Agentic AI Development — SE3062 Intelligent Systems
 
+[![Python](https://img.shields.io/badge/Python-3.6+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Autograder](https://img.shields.io/badge/Autograder-26%2F26%20Passed-success)](search/)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 > **Berkeley CS188 Pac-Man Search Project** | Group Assignment — SE3062 Intelligent Systems  
 > Third-Year Undergraduate | Faculty of Computing · SE Department
 
