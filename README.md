@@ -179,7 +179,7 @@ python3 pacman.py -p ClosestDotSearchAgent -l bigSearch
 | Q6 | Corners Heuristic | 3 | ✅ |
 | Q7 | Food Heuristic | 5 | ✅ |
 | Q8 | Closest Dot Search | 3 | ✅ |
-| **Total** | | **26** | |
+| **Total** | | **26** | ✅ 26 / 26 |
 
 ---
 
