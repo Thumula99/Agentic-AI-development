@@ -134,20 +134,24 @@ def uniformCostSearch(problem):
     start_state = problem.getStartState()
     # Priority queue stores: (state, actions, path_cost) with priority = path_cost
     fringe.push((start_state, [], 0), 0)
+    # Track the minimum cost found for each visited state
     best_cost = {}
 
     while not fringe.isEmpty():
+        # Pop the node with the lowest path cost
         state, actions, cost = fringe.pop()
 
         # Check if the goal state has been reached
         if problem.isGoalState(state):
             return actions
 
+        # Expand state only if not visited or if a cheaper path is found
         if state not in best_cost or cost < best_cost[state]:
             best_cost[state] = cost
             for next_state, action, step_cost in problem.getSuccessors(state):
                 new_cost = cost + step_cost
                 new_actions = actions + [action]
+                # Push the successor node to the fringe with updated path cost
                 fringe.push((next_state, new_actions, new_cost), new_cost)
 
     return []
@@ -171,14 +175,17 @@ def aStarSearch(problem, heuristic=nullHeuristic):
     while not fringe.isEmpty():
         state, actions, cost = fringe.pop()
 
+        # Check if the goal state has been reached
         if problem.isGoalState(state):
             return actions
 
+        # Expand state only if not visited or if a cheaper path is found
         if state not in best_cost or cost < best_cost[state]:
             best_cost[state] = cost
             for next_state, action, step_cost in problem.getSuccessors(state):
                 new_cost = cost + step_cost
                 new_actions = actions + [action]
+                # Priority f(n) = path cost g(n) + heuristic estimate h(n)
                 priority = new_cost + heuristic(next_state, problem)
                 fringe.push((next_state, new_actions, new_cost), priority)
 
