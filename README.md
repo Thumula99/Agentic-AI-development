@@ -1,24 +1,43 @@
 # 🤖 Agentic AI Development — SE3062 Intelligent Systems
 
-[![Python](https://img.shields.io/badge/Python-3.6+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![Autograder](https://img.shields.io/badge/Autograder-26%2F26%20Passed-success)](search/)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Python Version](https://img.shields.io/badge/python-3.6+-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
+[![Autograder Status](https://img.shields.io/badge/autograder-26%2F26%20passing-brightgreen.svg?logo=checkmarx&logoColor=white)](https://github.com/Thumula99/Agentic-AI-development)
+[![Module](https://img.shields.io/badge/module-SE3062%20Intelligent%20Systems-orange.svg)](https://www.sliit.lk/)
+[![License](https://img.shields.io/badge/license-Academic%20%2F%20MIT-lightgrey.svg)](LICENSE)
+[![Code Style](https://img.shields.io/badge/code%20style-PEP%208-informational.svg)](https://peps.python.org/pep-0008/)
 
 > **Berkeley CS188 Pac-Man Search Project** | Group Assignment — SE3062 Intelligent Systems  
-> Third-Year Undergraduate | Faculty of Computing · SE Department
+> Third-Year Undergraduate | Faculty of Computing · Department of Software Engineering
+
+---
+
+### 📊 Quick Project Metrics
+
+| Metric | Specification | Status |
+|---|---|---|
+| **Course Module** | SE3062 Intelligent Systems | Semester 1, Year 3 |
+| **Total Evaluation Score** | 26 / 26 (100%) | ✅ All Test Suites Passing |
+| **Search Paradigms** | Uninformed (DFS, BFS, UCS) & Informed (A*) | ✅ Implemented & Verified |
+| **Runtime Dependencies** | Pure Python Standard Library | Zero third-party dependencies |
+| **Execution Platform** | Cross-platform (Windows / macOS / Linux) | Python 3.6+ verified |
 
 ---
 
 ## 📋 Table of Contents
 
 - [Overview](#overview)
+- [System Architecture & Design](#system-architecture--design)
 - [Project Structure](#project-structure)
 - [Algorithms Implemented](#algorithms-implemented)
 - [Search Problems](#search-problems)
-- [Getting Started](#getting-started)
+- [Algorithmic Complexity & Theoretical Analysis](#algorithmic-complexity--theoretical-analysis)
+- [Getting Started & Environment Setup](#getting-started--environment-setup)
 - [Running the Autograder](#running-the-autograder)
 - [Running Pac-Man Visually](#running-pac-man-visually)
 - [Question Summary](#question-summary)
+- [Engineering Verification & Testing](#engineering-verification--testing)
+- [Troubleshooting & FAQ](#troubleshooting--faq)
+- [Contribution Guidelines & Academic Integrity](#contribution-guidelines--academic-integrity)
 - [Attribution](#attribution)
 
 ---
