@@ -185,19 +185,40 @@ For informed search algorithms (A* on Q4, Q6, and Q7) to remain computationally 
 
 ---
 
-## Getting Started
+## Getting Started & Environment Setup
 
-### Prerequisites
+### 📦 Prerequisites & System Requirements
 
-- Python **3.6+**
-- `tkinter` (bundled by default with standard Python installations; required for GUI visualizations)
-- No external third-party dependencies — relies entirely on the Python standard library.
+- **Python Runtime:** Python **3.6+** (Compatible with Python 3.7, 3.8, 3.9, 3.10, 3.11)
+- **External Dependencies:** **0** (Relies exclusively on Python standard libraries: collections, heapq, math, sys, 	ime, and 	kinter for GUI visualization)
 
-### Clone the repository
+### 🛠️ Environment Configuration
 
+It is recommended to run the project within an isolated Python virtual environment:
+
+#### 1. Clone the repository
 ```bash
 git clone https://github.com/Thumula99/Agentic-AI-development.git
-cd Agentic-AI-development/search
+cd Agentic-AI-development
+```
+
+#### 2. Create and activate a Virtual Environment
+
+**On Linux / macOS:**
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+**On Windows (PowerShell):**
+```powershell
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+```
+
+#### 3. Change directory to the search package
+```bash
+cd search
 ```
 
 ---
@@ -285,6 +306,52 @@ python3 pacman.py -p ClosestDotSearchAgent -l bigSearch
 | Q7 | Food Heuristic | 5 | ✅ |
 | Q8 | Closest Dot Search | 3 | ✅ |
 | **Total** | | **26** | ✅ 26 / 26 |
+
+---
+
+## 🧪 Engineering Verification & Testing
+
+### 🛡️ Test Suite Automation Matrix
+
+The official test suite comprehensively validates optimality, admissibility, consistency, and search-tree node expansion thresholds across 8 assessment modules:
+
+| Test Target | CLI Invocation | Validation Criteria | Pass Threshold |
+|---|---|---|---|
+| **Q1 (DFS)** | `python3 autograder.py -q q1` | Graph search paths, non-optimal exploration | Returns valid path |
+| **Q2 (BFS)** | `python3 autograder.py -q q2` | Shortest path on unit-cost graphs | Optimal solution cost |
+| **Q3 (UCS)** | `python3 autograder.py -q q3` | Cumulative action cost minimization | Optimal solution cost |
+| **Q4 (A\*)** | `python3 autograder.py -q q4` | Manhattan heuristic admissibility & optimal path | Optimal cost & minimal expansions |
+| **Q5 (Corners Problem)** | `python3 autograder.py -q q5` | State abstraction & legal transitions | Visited state hashing correctness |
+| **Q6 (Corners Heuristic)** | `python3 autograder.py -q q6` | Admissibility & consistency check | < 2,000 nodes expanded |
+| **Q7 (Food Heuristic)** | `python3 autograder.py -q q7` | MST consistency & pruning efficiency | < 7,000 nodes expanded |
+| **Q8 (Closest Dot)** | `python3 autograder.py -q q8` | Greedy sub-goal BFS selection | Solves within < 350 moves |
+
+### 🔍 Headless & Continuous Integration Mode
+
+For automated pipelines or remote server environments lacking X11 / GUI displays, execute tests using headless flags:
+
+```bash
+# Run complete test suite without rendering graphics
+python3 autograder.py --no-graphics
+
+# Run test suite quietly (minimal stdout log)
+python3 autograder.py --mute --no-graphics
+
+# Run with custom grading timeout (in seconds)
+python3 autograder.py --timeout 30
+```
+
+### 🧹 Code Hygiene & Static Analysis
+
+Adherence to industry code style (PEP 8) is encouraged for clean maintainability:
+
+```bash
+# Check code style with flake8
+flake8 search.py searchAgents.py --max-line-length=120
+
+# Optional formatting check with Black
+black --check search.py searchAgents.py
+```
 
 ---
 
